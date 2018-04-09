@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace DBLabs
@@ -19,6 +20,8 @@ namespace DBLabs
             
         }
 
+        private SqlConnection myConnection;
+
         /*
          * The function to logon to the database
          * 
@@ -32,6 +35,21 @@ namespace DBLabs
          */
         public override bool login(string username, string password)
         {
+            string connectionString = "Data Source=www4.idt.mdh.se;" + "Initial Catalog=DVA234_2018_C1_db;" + "User Id=" + username + ";" +
+            "Password=" + password + ";";
+
+            myConnection = new SqlConnection(connectionString);
+
+            try
+            {
+                myConnection.Open();
+                myConnection.Close();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
             return true;
         }
 /*
