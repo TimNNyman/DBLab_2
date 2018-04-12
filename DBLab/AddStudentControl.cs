@@ -97,7 +97,9 @@ namespace DBLabs
             student.Gender = Gender.Text;
             student.City = City.Text;
             student.Country = Country.Text;
-            student.ZipCode = Int32.Parse(ZipCode.Text);
+            uint value;
+            uint.TryParse(ZipCode.Text, out value);
+            student.ZipCode = value;
             student.BirthDate = BirthDate.Text;
             student.StudentType = StudentTyp.Text;
             student.StreetAdress = StreetAdress.Text;
