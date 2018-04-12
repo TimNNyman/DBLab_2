@@ -77,8 +77,28 @@ namespace DBLabs
             cmnd.Parameters.Add("@Birthdate", SqlDbType.Date).Value = student.BirthDate;
             cmnd.Parameters.Add("@StudentType", SqlDbType.VarChar, 50).Value = student.StudentType;
 
-            var result = cmnd.ExecuteNonQuery();
-             
+            for (int i = 0; i < cmnd.Parameters.Count; i++)
+            {
+                if (cmnd.Parameters[i].Value == null)
+                {
+                    cmnd.Parameters[i].Value = DBNull.Value;
+                }
+            }
+
+            StringBuilder errorMessages = new StringBuilder();
+            int result = 0;
+            try
+            {
+                result = cmnd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 2627)
+                {
+                    MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
+                }
+            }
+            
             myConnection.Close();
 
             return result;
@@ -94,7 +114,17 @@ namespace DBLabs
             cmnd.Parameters.Add("@PhoneNmbr", SqlDbType.VarChar, 50).Value = phone.PhoneNumber;
             cmnd.Parameters.Add("@PhoneType", SqlDbType.VarChar, 50).Value = phone.PhoneType;
 
-            cmnd.ExecuteNonQuery();
+            try
+            {
+                cmnd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 2627)
+                {
+                    MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
+                }
+            }
 
             myConnection.Close();
         }
