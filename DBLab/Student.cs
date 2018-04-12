@@ -45,7 +45,7 @@ namespace DBLab
             get => country;
             set => country = value == string.Empty ? null : value;
         }
-        public uint ZipCode { get; set; }
+        public int ZipCode { get; set; }
         public string BirthDate { get; set; }
         public string StudentType { get; set; }
     }

@@ -98,19 +98,7 @@ namespace DBLabs
             student.Gender = Gender.Text;
             student.City = City.Text;
             student.Country = Country.Text;
-            int number;
-            bool result = Int32.TryParse(ZipCode.Text, out number);
-            if (result)
-            {
-                student.ZipCode = number;
-            }
-            else
-            {
-                            if (ZipCode.Text == null) ZipCode.Text = null; 
-                MessageBox.Show("Only integers for ZipCode", "Please try again", MessageBoxButtons.OK);
-                return;
-            }
-            student.ZipCode = Int32.Parse(ZipCode.Text);
+            student.ZipCode = ZipCode.Text;
             student.BirthDate = BirthDate.Text;
             student.StudentType = StudentTyp.Text;
             student.StreetAdress = StreetAdress.Text;
