@@ -13,6 +13,7 @@ namespace DBLab
         private string streetAdress;
         private string city;
         private string country;
+        private string zipCode;
 
         public string StudentID { get; set; }
         public string FirstName
@@ -45,7 +46,11 @@ namespace DBLab
             get => country;
             set => country = value == string.Empty ? null : value;
         }
-        public int ZipCode { get; set; }
+        public string ZipCode
+        {
+            get => zipCode;
+            set => zipCode = value == string.Empty ? null : value;
+        }
         public string BirthDate { get; set; }
         public string StudentType { get; set; }
     }
