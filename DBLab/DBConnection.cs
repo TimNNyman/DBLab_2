@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using DBLab;
 
 namespace DBLabs
 {
@@ -52,21 +53,84 @@ namespace DBLabs
             
             return true;
         }
-/*
- --------------------------------------------------------------------------------------------
- IMPLEMENTATION TO BE USED IN LAB 2. 
- --------------------------------------------------------------------------------------------
-*/
 
-    // Here you need to implement your own methods that call the stored procedures 
-    // addStudent and addStudentPhoneNo
+        
+        /*
+         --------------------------------------------------------------------------------------------
+         IMPLEMENTATION TO BE USED IN LAB 2. 
+         --------------------------------------------------------------------------------------------
+        */
+        public int AddStudent(Student student)
+        {
+            myConnection.Open();
 
+            SqlCommand cmnd = new SqlCommand("[addStudent]", myConnection);
+            cmnd.CommandType = CommandType.StoredProcedure;
+            cmnd.Parameters.Add("@StudentID", SqlDbType.VarChar, 11).Value = student.StudentID;
+            cmnd.Parameters.Add("@FirstName", SqlDbType.VarChar, 50).Value = student.FirstName;
+            cmnd.Parameters.Add("@LastName", SqlDbType.VarChar, 50).Value = student.LastName;
+            cmnd.Parameters.Add("@Gender", SqlDbType.VarChar, 1).Value = student.Gender;
+            cmnd.Parameters.Add("@StreetAdress", SqlDbType.VarChar, 50).Value = student.StreetAdress;
+            cmnd.Parameters.Add("@ZipCode", SqlDbType.Int).Value = student.ZipCode;
+            cmnd.Parameters.Add("@City", SqlDbType.VarChar, 50).Value = student.City;
+            cmnd.Parameters.Add("@Country", SqlDbType.VarChar, 50).Value = student.Country;
+            cmnd.Parameters.Add("@Birthdate", SqlDbType.Date).Value = student.BirthDate;
+            cmnd.Parameters.Add("@StudentType", SqlDbType.VarChar, 50).Value = student.StudentType;
 
-/*
- --------------------------------------------------------------------------------------------
- STUB IMPLEMENTATIONS TO BE USED IN LAB 3. 
- --------------------------------------------------------------------------------------------
-*/
+            var result = cmnd.ExecuteNonQuery();
+             
+            myConnection.Close();
+
+            return result;
+        }
+
+        public void AddPhone(Phone phone)
+        {
+            myConnection.Open();
+
+            SqlCommand cmnd = new SqlCommand("[addStudentPhoneNo]", myConnection);
+            cmnd.CommandType = CommandType.StoredProcedure;
+            cmnd.Parameters.Add("@StudentID", SqlDbType.VarChar, 11).Value = phone.StudentID;
+            cmnd.Parameters.Add("@PhoneNmbr", SqlDbType.VarChar, 50).Value = phone.PhoneNumber;
+            cmnd.Parameters.Add("@PhoneType", SqlDbType.VarChar, 50).Value = phone.PhoneType;
+
+            cmnd.ExecuteNonQuery();
+
+            myConnection.Close();
+        }
+
+        public DataTable PhoneTypeTable()
+        {
+            var phoneTypeQuery = "SELECT * FROM PhoneType";
+
+            myConnection.Open();
+            
+            DataTable dtPhoneType = new DataTable();
+            
+            SqlDataAdapter da = new SqlDataAdapter(phoneTypeQuery, myConnection);
+
+            da.Fill(dtPhoneType);
+
+            myConnection.Close();
+
+            return dtPhoneType;
+        }
+
+        public DataTable StudentTypeTable()
+        {
+            var studentTypeQuery = "SELECT * FROM StudentType";
+            myConnection.Open();
+            SqlDataAdapter da = new SqlDataAdapter(studentTypeQuery, myConnection);
+            DataTable dtStudentType = new DataTable();
+            da.Fill(dtStudentType);
+            myConnection.Close();
+            return dtStudentType;
+        }
+        /*
+         --------------------------------------------------------------------------------------------
+         STUB IMPLEMENTATIONS TO BE USED IN LAB 3. 
+         --------------------------------------------------------------------------------------------
+        */
 
 
         /********************************************************************************************
