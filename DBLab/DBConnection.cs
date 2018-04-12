@@ -71,7 +71,7 @@ namespace DBLabs
             cmnd.Parameters.Add("@LastName", SqlDbType.VarChar, 50).Value = student.LastName;
             cmnd.Parameters.Add("@Gender", SqlDbType.VarChar, 1).Value = student.Gender;
             cmnd.Parameters.Add("@StreetAdress", SqlDbType.VarChar, 50).Value = student.StreetAdress;
-            cmnd.Parameters.Add("@ZipCode", SqlDbType.Int).Value = student.ZipCode;
+            cmnd.Parameters.Add("@ZipCode", SqlDbType.VarChar, 50).Value = student.ZipCode;
             cmnd.Parameters.Add("@City", SqlDbType.VarChar, 50).Value = student.City;
             cmnd.Parameters.Add("@Country", SqlDbType.VarChar, 50).Value = student.Country;
             cmnd.Parameters.Add("@Birthdate", SqlDbType.Date).Value = student.BirthDate;
