@@ -93,10 +93,7 @@ namespace DBLabs
             }
             catch (SqlException ex)
             {
-                if (ex.Number == 2627)
-                {
-                    MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
-                }
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
             }
             
             myConnection.Close();
@@ -120,10 +117,7 @@ namespace DBLabs
             }
             catch (SqlException ex)
             {
-                if (ex.Number == 2627)
-                {
-                    MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
-                }
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
             }
 
             myConnection.Close();

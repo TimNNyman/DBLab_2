@@ -109,6 +109,7 @@ namespace DBLabs
             {
                 foreach (Phone item in PhoneList.Items)
                 {
+                    item.StudentID = StudentId.Text;
                     dbconn.AddPhone(item);
                 }
                 ResetAddStudentControl();

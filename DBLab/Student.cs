@@ -7,6 +7,7 @@ namespace DBLab
 {
     public class Student
     {
+        private string studentID;
         private string firstName;
         private string lastName;
         private string gender;
@@ -15,7 +16,11 @@ namespace DBLab
         private string country;
         private string zipCode;
 
-        public string StudentID { get; set; }
+        public string StudentID
+        {
+            get => studentID;
+            set => studentID = value == string.Empty ? null : value;
+        }
         public string FirstName
         {
             get => firstName;
