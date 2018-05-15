@@ -709,11 +709,19 @@ namespace DBLabs
         */
         public override DataTable getStaffingYears()
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
+            myConnection.Open();
+
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM getStaffingYears", myConnection);
+
             DataTable dt = new DataTable();
+
             dt.Columns.Add("Year");
-            dt.Rows.Add(2000);
+
+
+            da.Fill(dt);
+
+            myConnection.Close();
+
             return dt;
         }
 
@@ -729,12 +737,20 @@ namespace DBLabs
         */
         public override DataTable getStaffingGrid(string year)
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
+            myConnection.Open();
+
+            SqlCommand cmnd = new SqlCommand("[getStaffingGrid]", myConnection);
+            cmnd.CommandType = CommandType.StoredProcedure;
+            cmnd.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+
             DataTable dt = new DataTable();
             dt.Columns.Add("StaffingGrid");
-            dt.Rows.Add("All will be revealed in lab 4.. :)");
+            dt.Load(cmnd.ExecuteReader());
+
+            myConnection.Close();
+
             return dt;
+            
         }
     }
 }
